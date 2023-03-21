@@ -24,9 +24,9 @@ export const Btn = styled.button`
   }
 `;
 
-export default function index({className, text}) {
+export default function index({className, text, onClick}) {
   return (
-    <Btn className={className}>
+    <Btn onClick={onClick} className={className}>
       {text}
     </Btn>
   );
