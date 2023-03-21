@@ -1,15 +1,28 @@
-import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { theme } from "./theme";
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
   
+  @font-face {
+    font-family: 'GangwonEdu_OTFBoldA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/GangwonEdu_OTFBoldA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   :root {
     margin: 0 auto;
     text-align: center;
     max-width: 599px;
     min-height : calc(var(--vh, 1vh) * 100);
+    font-family: 'GangwonEdu_OTFBoldA';
+  }
+
+  button {
+    border : none;    
+    font-family: 'GangwonEdu_OTFBoldA';
   }
 `;
 
