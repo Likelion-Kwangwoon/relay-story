@@ -20,11 +20,14 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'GangwonEdu_OTFBoldA';
     background-color: ${(props) => props.theme.color.bg};
   }
+  
+  button, input, textarea {
+    font-family: 'GangwonEdu_OTFBoldA';
+  }
 
   button {
     cursor: pointer;
     border : none;    
-    font-family: 'GangwonEdu_OTFBoldA'; 
     background-color: inherit;
   }
 `;

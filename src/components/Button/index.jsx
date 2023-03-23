@@ -11,6 +11,13 @@ export const Btn = styled.button`
     border-radius: 10px;
   }
 
+  &.fix {
+    position: fixed;
+    bottom: 5%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   &.next {
     width: 88px;
     border-radius: 10px;
@@ -24,7 +31,7 @@ export const Btn = styled.button`
   }
 `;
 
-export default function index({className, text, onClick}) {
+export default function Button({className, text, onClick}) {
   return (
     <Btn onClick={onClick} className={className}>
       {text}

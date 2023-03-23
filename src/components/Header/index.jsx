@@ -3,7 +3,7 @@ import BackButton from '../BackButton'
 import Logo from '../Logo'
 
 export const HeaderWrap = styled.header`
-  padding: 60px 0 20px;
+  padding: 30px 0 20px;
   position: fixed;
   top: 0;
   left: 0;

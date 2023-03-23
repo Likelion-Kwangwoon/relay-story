@@ -21,12 +21,6 @@ export const Title = styled.h1`
       width: 45px;
     }
   }
-
-  /* &.sub {
-    position: absolute;
-    left: 50%;
-    top: 5%;
-  } */
 `;
 
 export default function Logo({className}) {
