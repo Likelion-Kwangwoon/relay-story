@@ -1,7 +1,6 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { theme } from "./theme";
 import reset from "styled-reset";
-import Header from "./components/Header";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -26,6 +25,7 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     border : none;    
     font-family: 'GangwonEdu_OTFBoldA'; 
+    background-color: inherit;
   }
 `;
 
@@ -42,7 +42,6 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Header />
       </ThemeProvider>
     </>
   );
