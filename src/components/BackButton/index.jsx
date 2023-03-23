@@ -3,6 +3,8 @@ import iconBackArrow from "../../assets/icon-backArrow.svg"
 
 export const BackBtn = styled.button`
   background: ${props => props.theme.color.white};
+  position: absolute;
+  left: 30px;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 50px;
   width: 37px;
@@ -13,7 +15,7 @@ export const BackBtn = styled.button`
   }
 `;
 
-export default function index({ onClick }) {
+export default function BackButton({ onClick }) {
   return (
     <BackBtn onClick={onClick}>
       <img src={iconBackArrow} alt="뒤로가기 버튼" />
