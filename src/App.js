@@ -30,6 +30,15 @@ const GlobalStyle = createGlobalStyle`
     border : none;    
     background-color: inherit;
   }
+
+  .hidden{
+		position:absolute;
+    overflow:hidden;
+    width:1px;
+    height:1px;
+    margin:-1px;
+    clip:rect(0,0,0,0);
+  }
 `;
 
 function App() {
