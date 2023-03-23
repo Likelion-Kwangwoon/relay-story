@@ -5,6 +5,7 @@ import Button from "../../components/Button"
 import iconGoogle from "../../assets/icon-google.svg"
 import iconKakao from "../../assets/icon-kakao.svg"
 import MainBg from "../../assets/img-bg.png"
+import StarAnimation from "../../components/StarAnimation"
 
 export const Section = styled.section`
   position: fixed;
@@ -58,6 +59,7 @@ export default function Home() {
 
   return (
     <Section>
+      <StarAnimation />
         <Logo className="main" />
         <SubTitle>함께 만드는 이야기</SubTitle>
       <BtnWrap>

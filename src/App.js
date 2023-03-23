@@ -1,7 +1,6 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { theme } from "./theme";
 import reset from "styled-reset";
-import Share from "./pages/Share";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -55,7 +54,6 @@ function App() {
     <>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
-        <Share />
       </ThemeProvider>
     </>
   );

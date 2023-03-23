@@ -62,7 +62,7 @@ export default function WriteComment() {
   const [comment, setComment] = useState('')
 
   return (
-    <div>
+    <>
       <Title>책 제목 책 제목</Title>
       <SubTitle>이전 사용자가 적은 내용에 이어서 글을 작성해보세요!</SubTitle>
       <PrevContent />
@@ -75,6 +75,6 @@ export default function WriteComment() {
         <span>{`${comment.length}/200byte`}</span>
       </InpWrap>
       <Button text="글쓰기" className="main fix" />
-    </div>
+    </>
   )
 }
