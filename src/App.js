@@ -18,11 +18,12 @@ const GlobalStyle = createGlobalStyle`
     max-width: 599px;
     min-height : calc(var(--vh, 1vh) * 100);
     font-family: 'GangwonEdu_OTFBoldA';
+    background-color: ${(props) => props.theme.color.bg};
   }
 
   button {
     border : none;    
-    font-family: 'GangwonEdu_OTFBoldA';
+    font-family: 'GangwonEdu_OTFBoldA'; 
   }
 `;
 
