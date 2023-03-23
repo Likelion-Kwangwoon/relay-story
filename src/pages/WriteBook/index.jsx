@@ -58,6 +58,7 @@ export default function WriteBook() {
 
   return (
     <>
+      <h2 className="hidden">책 쓰기 페이지</h2>
       <CoverDesc>표지를 선택하세요 {`:)`}</CoverDesc>
       <SelectCover cover={cover} setCover={setCover} />
       <TitleInp maxLength="30" type="text" name="" id="" placeholder="책 제목을 입력하세요" />
