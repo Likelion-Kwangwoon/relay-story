@@ -43,7 +43,7 @@ export const Textarea = styled.textarea`
   transform: translateX(-50%);
   margin-top: 5%;
   line-height: 160%;
-  font-size: 13px;
+  font-size: 15px;
   border: none;
   outline: none;
   resize: none;
