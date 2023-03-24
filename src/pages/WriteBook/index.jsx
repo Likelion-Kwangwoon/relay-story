@@ -3,6 +3,7 @@ import styled from "styled-components"
 import SelectCover from "../../components/SelectCover"
 import ImgTextarea from "../../assets/img-textarea.svg"
 import Button from "../../components/Button"
+import { useNavigate } from "react-router-dom"
 
 export const CoverDesc = styled.p`
   margin-bottom: 20px;
@@ -55,6 +56,7 @@ export const Textarea = styled.textarea`
 
 export default function WriteBook() {
   const [cover, setCover] = useState(0)
+  const navigate = useNavigate()
 
   return (
     <>
@@ -67,7 +69,7 @@ export default function WriteBook() {
         <img src={ImgTextarea} alt="" />
         <Textarea placeholder="당신을 작가로 만들어 줄 첫 줄을 써 보세요! 🥰" name="" id="" cols="30" rows="5" maxLength="200" />
       </TextWrap>
-      <Button text="만들기" className="main fix" />
+      <Button text="만들기" className="main fix" onClick={() => navigate('/share/cover')}/>
     </>
   )
 }

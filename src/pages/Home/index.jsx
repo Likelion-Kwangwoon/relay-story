@@ -6,6 +6,7 @@ import iconGoogle from "../../assets/icon-google.svg"
 import iconKakao from "../../assets/icon-kakao.svg"
 import MainBg from "../../assets/img-bg.png"
 import StarAnimation from "../../components/StarAnimation"
+import { useNavigate } from "react-router-dom"
 
 export const Section = styled.section`
   position: fixed;
@@ -56,6 +57,7 @@ export const LoginBtn = styled.button`
 
 export default function Home() {
   const [isLogin, setIsLogin] = useState(true)
+  const navigate = useNavigate();
 
   return (
     <Section>
@@ -66,8 +68,8 @@ export default function Home() {
       {
         isLogin ?
           <>
-            <Button text='📜 책 쓰기' className="main" />
-            <Button text='📕 내 서재' className="main" />
+            <Button text='📜 책 쓰기' className="main" onClick={() => navigate('/writeBook')} />
+            <Button text='📕 내 서재' className="main" onClick={() => navigate('/booklist')} />
           </>  
           :
           <>

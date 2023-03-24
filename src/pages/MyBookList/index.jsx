@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import Button from "../../components/Button"
 import CompGauge from '../../components/CompGauge'
@@ -58,31 +59,32 @@ export const TextWrap = styled.div`
 
 export default function MyBookList() {
   // const [완성도, 완성도변경] = useState([6, 3, 10])
+  const navigate = useNavigate();
 
   return (
     <>
       <BookWrap>
-        <BookCover><Title>책 제목입니다</Title></BookCover>
+        <BookCover onClick={() => navigate('/share/cover')}><Title>책 제목입니다</Title></BookCover>
         <Desc>
           <CompGauge count={6}></CompGauge>
           <TextWrap><p>완성도</p> <p>60%</p></TextWrap>
         </Desc>
       </BookWrap>
       <BookWrap>
-        <BookCover><Title>책 제목입니다책 제목입니다책 제목입니다책 제목입니다</Title></BookCover>
+        <BookCover onClick={() => navigate('/share/cover')}><Title>책 제목입니다책 제목입니다책 제목입니다책 제목입니다</Title></BookCover>
         <Desc>
           <CompGauge count={3}></CompGauge>
           <TextWrap><p>완성도</p> <p>30%</p></TextWrap>
         </Desc>
       </BookWrap>
       <BookWrap>
-        <BookCover><Title>책 제목입니다책 제목입니다책 제목입니다</Title></BookCover>
+        <BookCover onClick={() => navigate('/share/cover')}><Title>책 제목입니다책 제목입니다책 제목입니다</Title></BookCover>
         <Desc>
           <CompGauge count={7}></CompGauge>
           <TextWrap><p>완성도</p> <p>70%</p></TextWrap>
         </Desc>
       </BookWrap>
-      <Button text="책 만들기" className="main fix" />
+      <Button text="책 만들기" className="main fix" onClick={() => navigate('/writeBook')} />
     </>
 
   )

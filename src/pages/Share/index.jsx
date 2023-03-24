@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import Button from '../../components/Button'
 import imgBarcode from "../../assets/img-barcode.png"
+import { useNavigate } from 'react-router-dom'
 
 export const Title = styled.p`
   font-size: 26px;
@@ -51,7 +52,8 @@ export const ShareWrap = styled.div`
 `
 
 export default function Share() {
-  const [isPrev, setIsPrev] = useState(false)
+  const [isPrev, setIsPrev] = useState(true)
+  const navigate = useNavigate()
 
   return (
     <>
@@ -64,7 +66,7 @@ export default function Share() {
             : '바코드를 클릭하면 링크를 복사할 수 있어요!'
         }
       </TitleDesc>
-      <Cover>
+      <Cover onClick={() => navigate(isPrev ? '/share/content' : '/comment')}>
         {
           isPrev ?
           <p>책 제목</p>

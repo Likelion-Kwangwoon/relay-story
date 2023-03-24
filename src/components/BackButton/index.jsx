@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
 import iconBackArrow from "../../assets/icon-backArrow.svg"
 
@@ -15,9 +16,10 @@ export const BackBtn = styled.button`
   }
 `;
 
-export default function BackButton({ onClick }) {
+export default function BackButton() {
+  const navigate = useNavigate()
   return (
-    <BackBtn onClick={onClick}>
+    <BackBtn onClick={() => navigate(-1)}>
       <img src={iconBackArrow} alt="뒤로가기 버튼" />
     </BackBtn>
   );
