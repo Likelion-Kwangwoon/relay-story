@@ -13,9 +13,12 @@ export const Btn = styled.button`
 
   &.fix {
     position: fixed;
-    bottom: 5%;
     left: 50%;
     transform: translateX(-50%);
+    bottom: 10%;
+    @media screen and (max-width: 500px) {
+      bottom: 5%;
+    }
   }
 
   &.next {

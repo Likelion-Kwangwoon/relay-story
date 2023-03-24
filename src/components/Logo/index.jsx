@@ -1,5 +1,6 @@
 import imgLogo from "../../assets/logo.svg"
 import styled from "styled-components"
+import { useNavigate } from "react-router-dom";
 
 export const Title = styled.h1`
   position: relative;
@@ -24,9 +25,11 @@ export const Title = styled.h1`
 `;
 
 export default function Logo({className}) {
+  const navigate = useNavigate()
+
   return (
     <>
-        <Title className={className}>
+        <Title className={className} onClick={() => navigate('/')}>
           <p>짱돌</p>
           <img src={imgLogo} alt="" />
         </Title>

@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom'
 import styled from 'styled-components'
 import BackButton from '../BackButton'
 import Logo from '../Logo'
@@ -16,9 +17,13 @@ export const HeaderWrap = styled.header`
 `
 
 export default function Header() {
+  const location = useLocation();
+
   return (
     <HeaderWrap>
-      <BackButton />
+      {
+        location.pathname.includes('comment') ? <></> : <BackButton />
+      }
       <Logo />
     </HeaderWrap>
   )

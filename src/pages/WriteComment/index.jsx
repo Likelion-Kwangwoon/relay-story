@@ -45,6 +45,7 @@ export const TextInp = styled.textarea`
   padding: 10px;
   box-sizing: border-box;
   border: 1px solid #DADADA;
+  font-size: 15px;
   border-radius: 5px;
   outline: none;
   line-height: 160%;

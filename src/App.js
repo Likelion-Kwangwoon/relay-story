@@ -1,6 +1,14 @@
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { theme } from "./theme";
 import reset from "styled-reset";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home"
+import MainWrapper from "./layout/MainWrapper";
+import MyBookList from "./pages/MyBookList";
+import Share from "./pages/Share";
+import WriteBook from "./pages/WriteBook";
+import BookViewer from "./pages/BookViewer";
+import WriteComment from "./pages/WriteComment"
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -49,13 +57,23 @@ function App() {
   }
   setScreenSize();
   window.addEventListener('resize', setScreenSize);
-
+  
   return (
-    <>
+    <BrowserRouter>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route element={<MainWrapper />}>
+            <Route path="/writeBook" element={<WriteBook />} />
+            <Route path="/booklist" element={<MyBookList />} />
+            <Route path="/share/cover" element={<Share />} />
+            <Route path="/share/content" element={<BookViewer />} />
+            <Route path="/comment" element={<WriteComment />} />
+          </Route>
+        </Routes>
       </ThemeProvider>
-    </>
+    </BrowserRouter>
   );
 }
 
