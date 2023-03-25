@@ -22,6 +22,7 @@ export const CommentBox = styled.div`
       margin: 20px auto;
     }
 
+    
   /* 애니메이션 */
   opacity: ${(props) => (props.visible ? 1 : 0)};
   visibility: ${(props) => (props.visible ? "visible" : "hidden")};
