@@ -1,13 +1,4 @@
-import styled, { keyframes } from "styled-components";
-
-export const fadeIn = keyframes`
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-`
+import styled from "styled-components";
 
 export const CommentBox = styled.div`
   margin-top: 20px;
@@ -21,11 +12,6 @@ export const CommentBox = styled.div`
       width: 90%;
       margin: 20px auto;
     }
-
-  /* 애니메이션 */
-  opacity: ${(props) => (props.visible ? 1 : 0)};
-  visibility: ${(props) => (props.visible ? "visible" : "hidden")};
-  transition: visibility 1000ms , opacity 1000ms ;
 `
 
 export const TextWrap = styled.div`
@@ -70,9 +56,9 @@ export const TextSpan = styled.span`
   }
 `
 
-export default function RelayComment({ id, cnt, text, visible }) {
+export default function RelayComment({ id, cnt, text }) {
   return (
-    <CommentBox visible={visible}>
+    <CommentBox>
       <TextWrap>
         <TextSpan>
           <p>{id}</p>
