@@ -1,3 +1,4 @@
+import { useContext } from "react"
 import { useState } from "react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
@@ -8,7 +9,7 @@ import CompGauge from '../../components/CompGauge'
 export const BookWrap = styled.div`
   width:250px;
   position: relative;
-  margin: 30px auto;
+  margin: 40px auto;
   @media screen and (max-width: 500px) {
     width:210px;
   }
@@ -17,8 +18,8 @@ export const BookWrap = styled.div`
 export const BookCover = styled.div`
   width:100%;
   height: 310px;
-  background-color: #666;
-  margin-bottom: 10px;
+  background: url(${props => props.backgroundImg}) no-repeat 50% 50% / contain;
+  margin-bottom: 20px;
   @media screen and (max-width: 500px) {
     height: 270px;
   }
@@ -31,7 +32,7 @@ export const Title = styled.h2`
   height: auto;
   overflow: hidden;
   font-size: 20px;
-  padding: 50px 30px;
+  padding: 60px 30px;
   @media screen and (max-width: 500px) {
     font-size: 18px;
   }
@@ -74,9 +75,13 @@ export default function MyBookList() {
   return (
     <>
       {
-        bookList.map((item, index) => 
+        bookList && bookList.map((item, index) => 
           <BookWrap key={index}>
-            <BookCover onClick={() => navigate('/share/cover')}><Title>{ item.book.title }</Title></BookCover>
+            <BookCover
+              backgroundImg={require(`../../assets/cover/cover_${item.book.cover + 1}.png`)}
+              onClick={() => navigate('/share/cover', {state: item})}>
+              <Title>{item.book.title}</Title>
+            </BookCover>
             <Desc>
               <CompGauge count={item.comments?.length}></CompGauge>
               <TextWrap><p>완성도</p> <p>{item.comments?.length}0%</p></TextWrap>
