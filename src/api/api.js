@@ -52,3 +52,14 @@ export const writeBook = async data => {
     return error;
   }
 };
+
+export const getBookList = async () => {
+  try {
+    const response = await instance.get(`/book/view`);
+    
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+    return error;
+  }
+};
