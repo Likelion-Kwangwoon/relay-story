@@ -41,3 +41,14 @@ export const getUserInfo = async () => {
     return error;
   }
 };
+
+export const writeBook = async data => {
+  try {
+    const response = await instance.post(`/book/write/`, data);
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+    return error;
+  }
+};

@@ -67,6 +67,7 @@ export default function Home() {
   let code = new URL(window.location.href).searchParams.get("code");
 
   const handleSignUp = async (code) => {
+    // try catch 제거
     try {
       const response = await signUp(code)
       localStorage.setItem('accessToken', response.token.access)

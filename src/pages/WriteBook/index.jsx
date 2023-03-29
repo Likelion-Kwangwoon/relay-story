@@ -4,6 +4,8 @@ import SelectCover from "../../components/SelectCover"
 import ImgTextarea from "../../assets/img-textarea.svg"
 import Button from "../../components/Button"
 import { useNavigate } from "react-router-dom"
+import { writeBook } from "../../api/api"
+import { useRef } from "react"
 
 export const CoverDesc = styled.p`
   margin-bottom: 20px;
@@ -56,20 +58,37 @@ export const Textarea = styled.textarea`
 
 export default function WriteBook() {
   const [cover, setCover] = useState(0)
+  const titleRef = useRef('');
+  const contentRef = useRef('');
   const navigate = useNavigate()
+
+  const handleMakeBook = async () => {
+    const title = titleRef.current.value
+    const content = contentRef.current.value
+
+    const data = JSON.stringify({
+      title, 
+      content,
+      cover
+    })
+
+    const response = await writeBook(data)
+    response === "Success" ?
+      navigate('/share/cover') : alert('다시 시도해주세요 🥲')
+  }
 
   return (
     <>
       <h2 className="hidden">책 쓰기 페이지</h2>
       <CoverDesc>표지를 선택하세요 {`:)`}</CoverDesc>
       <SelectCover cover={cover} setCover={setCover} />
-      <TitleInp maxLength="30" type="text" name="" id="" placeholder="책 제목을 입력하세요" />
+      <TitleInp maxLength="30" type="text" name="title" ref={titleRef} id="" placeholder="책 제목을 입력하세요"  />
       <p>프롤로그</p>
       <TextWrap>
         <img src={ImgTextarea} alt="" />
-        <Textarea placeholder="당신을 작가로 만들어 줄 첫 줄을 써 보세요! 🥰" name="" id="" cols="30" rows="5" maxLength="200" />
+        <Textarea placeholder="당신을 작가로 만들어 줄 첫 줄을 써 보세요! 🥰" name="content" ref={contentRef} id="" cols="30" rows="5" maxLength="200" />
       </TextWrap>
-      <Button text="만들기" className="main fix" onClick={() => navigate('/share/cover')}/>
+      <Button text="만들기" className="main fix" onClick={handleMakeBook} />
     </>
   )
 }

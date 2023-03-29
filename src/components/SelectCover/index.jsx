@@ -1,6 +1,9 @@
 import iconRightArrow from "../../assets/icon-RightArrow.svg"
 import iconLeftArrow from "../../assets/icon-LeftArrow.svg"
 import styled from "styled-components"
+import Cover1 from "../../assets/cover/cover_1.png"
+import Cover2 from "../../assets/cover/cover_2.png"
+import Cover3 from "../../assets/cover/cover_3.png"
 
 export const Wrap = styled.div`
   display: flex;
@@ -8,12 +11,12 @@ export const Wrap = styled.div`
   align-items: center;
 `
 
-export const Cover = styled.div`
+export const Cover = styled.img`
   width: 214px;
   height: 287px;
-  background-color: ${props => props.color};
 `
-const coverList = ['pink', 'blue', 'green', 'yellow']
+
+const coverList = [Cover1, Cover2, Cover3]
 
 export default function SelectCover({ cover, setCover }) {
   
@@ -28,7 +31,7 @@ export default function SelectCover({ cover, setCover }) {
         <img src={iconLeftArrow} alt="이전 책 표지 보기" />
       </button>
       {/* 임시 책 커버 */}
-      <Cover color={coverList[cover]}></Cover> 
+      <Cover src={coverList[cover]} alt={`${cover}번 표지`} />
       <button onClick={() => handleChange(1)}>
         <img src={iconRightArrow} alt="다음 책 표지 보기" />  
       </button>
