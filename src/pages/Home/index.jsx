@@ -6,7 +6,9 @@ import iconGoogle from "../../assets/icon-google.svg"
 import iconKakao from "../../assets/icon-kakao.svg"
 import MainBg from "../../assets/img-bg.png"
 import StarAnimation from "../../components/StarAnimation"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { useEffect } from "react"
+import { getUserInfo, signUp } from "../../api/api"
 
 export const Section = styled.section`
   position: fixed;
@@ -55,9 +57,35 @@ export const LoginBtn = styled.button`
   }
 `
 
+const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
+
 export default function Home() {
-  const [isLogin, setIsLogin] = useState(true)
+  const [isLogin, setIsLogin] = useState(false)
   const navigate = useNavigate();
+  const location = useLocation()
+
+  let code = new URL(window.location.href).searchParams.get("code");
+
+  const handleSignUp = async (code) => {
+    try {
+      const response = await signUp(code)
+      localStorage.setItem('accessToken', response.token.access)
+
+      navigate('/', setIsLogin(true))
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  if(location.pathname === '/oauth') handleSignUp(code)
+
+  useEffect(() => {
+    localStorage.getItem('accessToken') && setIsLogin(true)
+  }, [])
+
+  const handleLogin = () => {
+     window.location.href = KAKAO_AUTH_URL;
+  }
 
   return (
     <Section>
@@ -77,7 +105,7 @@ export default function Home() {
               <img src={iconGoogle} alt="" />
               <span>구글 아이디로 로그인</span>
             </LoginBtn>
-            <LoginBtn>
+            <LoginBtn onClick={handleLogin}>
               <img src={iconKakao} alt="" />
               <span>카카오 아이디로 로그인</span>
             </LoginBtn>

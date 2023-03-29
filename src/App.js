@@ -63,7 +63,7 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/*" element={<Home />} />
           <Route element={<MainWrapper />}>
             <Route path="/writeBook" element={<WriteBook />} />
             <Route path="/booklist" element={<MyBookList />} />
