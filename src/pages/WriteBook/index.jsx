@@ -66,15 +66,16 @@ export default function WriteBook() {
     const title = titleRef.current.value
     const content = contentRef.current.value
 
-    const data = JSON.stringify({
+    const book = {
       title, 
       content,
       cover
-    })
+    }
 
-    const response = await writeBook(data)
-    response === "Success" ?
-      navigate('/share/cover') : alert('다시 시도해주세요 🥲')
+    const response = await writeBook(book)
+    typeof response === "number" ? 
+    navigate('/share/cover', { state: { id : response } }) 
+      : alert('다시 시도해주세요 🥲')
   }
 
   return (

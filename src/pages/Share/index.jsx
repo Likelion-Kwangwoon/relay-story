@@ -2,7 +2,10 @@ import { useState } from 'react'
 import styled from 'styled-components'
 import Button from '../../components/Button'
 import imgBarcode from "../../assets/img-barcode.png"
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { getBookDetail } from '../../api/api'
+import coverList from "../../components/BookCoverList"
 
 export const Title = styled.p`
   font-size: 26px;
@@ -16,12 +19,13 @@ export const TitleDesc = styled.p`
 export const Cover = styled.div`
   width: 283px;
   height: 374px;
-  background-color: aliceblue;
+  
+  background: url(${props => props.background}) no-repeat 50% 50% / contain;
   margin: 0 auto 48px;
   position: relative;
   & > p {
     position: absolute;
-    margin: 50px auto;
+    margin: 70px auto;
     left: 50%;
     transform: translateX(-50%);
     font-size: 24px;
@@ -53,23 +57,57 @@ export const ShareWrap = styled.div`
 
 export default function Share() {
   const [isPrev, setIsPrev] = useState(true)
+  const [isFinish, setIsFinish] = useState(false)
+  const [bookDetail, setBookDetail] = useState({
+    book: {},
+    comments: []
+  })
   const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleGetBookDetail = async (id) => {
+    const response = await getBookDetail(id)
+    
+     setBookDetail(prev => {
+      return {
+        ...prev,
+        book: response.book,
+        comments: response.comments ?? 1
+      }
+    })
+  }
+
+  const handleIsFinish = () => {
+    bookDetail.comments.length < 10 ?
+      alert('책이 완성될 때까지 조금만 기다려주세요 🥹') :
+      navigate('/share/content')
+  }
+  
+  useEffect(() => {
+    location.state.id && handleGetBookDetail(location.state.id)
+  }, [])
+  
 
   return (
-    <>
+    bookDetail.book && 
+      <>
       <h2 className='hidden'>공유 페이지</h2>
       <Title>이야기를 공유해보세요</Title>
       <TitleDesc>
         {
           isPrev ?
-            '표지를 누르면 내용을 볼 수 있어요 😁'
+            isFinish ?
+              '표지를 누르면 내용을 볼 수 있어요 😁'
+              : `책이 완성될 때까지 ${10 - bookDetail.comments?.length}명 남았어요! 😚`
             : '바코드를 클릭하면 링크를 복사할 수 있어요!'
         }
       </TitleDesc>
-      <Cover onClick={() => navigate(isPrev ? '/share/content' : '/comment')}>
+      <Cover
+        background={coverList[bookDetail.book.cover]}
+        onClick={handleIsFinish}>
         {
           isPrev ?
-          <p>책 제목</p>
+            <p>{bookDetail.book?.title}</p>
             : <img src={imgBarcode} alt="바코드" />
         }
       </Cover>

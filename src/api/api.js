@@ -44,8 +44,8 @@ export const getUserInfo = async () => {
 
 export const writeBook = async data => {
   try {
-    const response = await instance.post(`/book/write/`, data);
-
+    const response = await instance.post(`/book/write/`,  JSON.stringify(data));
+    
     return response.data;
   } catch (error) {
     console.error(error.message);
@@ -56,7 +56,18 @@ export const writeBook = async data => {
 export const getBookList = async () => {
   try {
     const response = await instance.get(`/book/view`);
-    
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+    return error;
+  }
+};
+
+export const getBookDetail = async id => {
+  try {
+    const response = await instance.get(`/book/getbook/?bookId=${id}`);
+
     return response.data;
   } catch (error) {
     console.error(error.message);

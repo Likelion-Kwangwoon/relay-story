@@ -1,10 +1,10 @@
-import { useContext } from "react"
 import { useState } from "react"
 import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { getBookList } from "../../api/api"
 import CompGauge from '../../components/CompGauge'
+import coverList from "../../components/BookCoverList"
 
 export const BookWrap = styled.div`
   width:250px;
@@ -75,19 +75,21 @@ export default function MyBookList() {
   return (
     <>
       {
-        bookList && bookList.map((item, index) => 
-          <BookWrap key={index}>
-            <BookCover
-              backgroundImg={require(`../../assets/cover/cover_${item.book.cover + 1}.png`)}
-              onClick={() => navigate('/share/cover', {state: item})}>
-              <Title>{item.book.title}</Title>
-            </BookCover>
-            <Desc>
-              <CompGauge count={item.comments?.length}></CompGauge>
-              <TextWrap><p>완성도</p> <p>{item.comments?.length}0%</p></TextWrap>
-            </Desc>
-          </BookWrap>
+        bookList.length ?
+          bookList.map((item, index) => 
+            <BookWrap key={index}>
+              <BookCover
+                backgroundImg={coverList[item.book.cover]}
+                onClick={() => navigate('/share/cover', {state: { id: item.comments[0].book }})}>
+                <Title>{item.book.title}</Title>
+              </BookCover>
+              <Desc>
+                <CompGauge count={item.comments?.length}></CompGauge>
+                <TextWrap><p>완성도</p> <p>{item.comments?.length}0%</p></TextWrap>
+              </Desc>
+            </BookWrap>
         )
+        : <p>잠시 기다려주세요 🥲</p>
       }
     </>
 
