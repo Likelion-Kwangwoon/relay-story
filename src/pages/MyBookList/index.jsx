@@ -1,13 +1,15 @@
 import { useState } from "react"
+import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
-import Button from "../../components/Button"
+import { getBookList } from "../../api/api"
 import CompGauge from '../../components/CompGauge'
+import coverList from "../../components/BookCoverList"
 
 export const BookWrap = styled.div`
   width:250px;
   position: relative;
-  margin: 30px auto;
+  margin: 40px auto;
   @media screen and (max-width: 500px) {
     width:210px;
   }
@@ -16,8 +18,8 @@ export const BookWrap = styled.div`
 export const BookCover = styled.div`
   width:100%;
   height: 310px;
-  background-color: #666;
-  margin-bottom: 10px;
+  background: url(${props => props.backgroundImg}) no-repeat 50% 50% / contain;
+  margin-bottom: 20px;
   @media screen and (max-width: 500px) {
     height: 270px;
   }
@@ -30,7 +32,7 @@ export const Title = styled.h2`
   height: auto;
   overflow: hidden;
   font-size: 20px;
-  padding: 50px 30px;
+  padding: 60px 30px;
   @media screen and (max-width: 500px) {
     font-size: 18px;
   }
@@ -48,43 +50,50 @@ export const TextWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 3px;
   & > p:first-of-type{
     font-size: 15px;
+    min-width: max-content;
   }
   & > p:last-of-type{
     font-size: 14px;
+    min-width: max-content;
     color: ${props => props.theme.text.gray2};
   }
 `
 
 export default function MyBookList() {
-  // const [완성도, 완성도변경] = useState([6, 3, 10])
   const navigate = useNavigate();
+  const [bookList, setBookList] = useState([])
+  
+  const handleGetBookList = async () => {
+    const response = await getBookList()
+    setBookList(response)
+  }
+
+  useEffect(() => {
+    handleGetBookList()
+  }, [])
 
   return (
     <>
-      <BookWrap>
-        <BookCover onClick={() => navigate('/share/cover')}><Title>책 제목입니다</Title></BookCover>
-        <Desc>
-          <CompGauge count={6}></CompGauge>
-          <TextWrap><p>완성도</p> <p>60%</p></TextWrap>
-        </Desc>
-      </BookWrap>
-      <BookWrap>
-        <BookCover onClick={() => navigate('/share/cover')}><Title>책 제목입니다책 제목입니다책 제목입니다책 제목입니다</Title></BookCover>
-        <Desc>
-          <CompGauge count={3}></CompGauge>
-          <TextWrap><p>완성도</p> <p>30%</p></TextWrap>
-        </Desc>
-      </BookWrap>
-      <BookWrap>
-        <BookCover onClick={() => navigate('/share/cover')}><Title>책 제목입니다책 제목입니다책 제목입니다</Title></BookCover>
-        <Desc>
-          <CompGauge count={7}></CompGauge>
-          <TextWrap><p>완성도</p> <p>70%</p></TextWrap>
-        </Desc>
-      </BookWrap>
-      <Button text="책 만들기" className="main fix" onClick={() => navigate('/writeBook')} />
+      {
+        bookList.length ?
+          bookList.map((item, index) => 
+            <BookWrap key={index}>
+              <BookCover
+                backgroundImg={coverList[item.book.cover]}
+                onClick={() => navigate('/share/cover', {state: { id: item.comments[0].book }})}>
+                <Title>{item.book.title}</Title>
+              </BookCover>
+              <Desc>
+                <CompGauge count={item.comments?.length}></CompGauge>
+                <TextWrap><p>완성도</p> <p>{item.comments?.length}0%</p></TextWrap>
+              </Desc>
+            </BookWrap>
+        )
+        : <p>잠시 기다려주세요 🥲</p>
+      }
     </>
 
   )

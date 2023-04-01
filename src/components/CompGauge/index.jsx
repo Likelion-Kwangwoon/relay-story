@@ -1,4 +1,3 @@
-import { useState } from "react"
 import styled from "styled-components"
 
 export const GaugeWrap = styled.div`
@@ -31,7 +30,7 @@ export default function CompGauge({ count = 3 }) {
   return (
     <GaugeWrap>
       {
-        gauge.map((v, i) => (<ActiveBox active={v}></ActiveBox>))
+        gauge.map((v, i) => (<ActiveBox key={i} active={v}></ActiveBox>))
       }
     </GaugeWrap>
   )

@@ -52,13 +52,14 @@ export const TextSpan = styled.span`
   }
 `
 
-export default function PrevContent() {
+export default function PrevContent({ content }) {
   return (
+    content &&
     <TextWrap>
       <img src={ImgMemo} alt="" />  
-      <TextSpan>닉네임</TextSpan>
-      <TextSpan>2번째 작가</TextSpan>
-      <p>옛날 옛적에 어린왕자가 살았답니다!옛날 옛적에 어린왕자가 살았답니다!옛날 옛적에 어린왕자가 살았답니다!옛날 옛적에 어린왕자가 살았답니다! 옛날 옛적에 </p>
+      <TextSpan>{content.slice(-1)[0].nickname}</TextSpan>
+      <TextSpan>{content.length}번째 작가</TextSpan>
+      <p>{content.slice(-1)[0].content} </p>
     </TextWrap>
   )
 }

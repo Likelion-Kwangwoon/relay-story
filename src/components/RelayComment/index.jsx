@@ -1,14 +1,15 @@
-import styled, { keyframes } from "styled-components";
+import { useRef } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import styled, {keyframes} from "styled-components";
 
-export const fadeIn = keyframes`
+export const FadeIn = keyframes`
   0% {
     opacity: 0;
-  }
-  100% {
+  } 50% {
     opacity: 1;
   }
 `
-
 export const CommentBox = styled.div`
   margin-top: 20px;
   width: 100%;
@@ -17,20 +18,14 @@ export const CommentBox = styled.div`
   background-color: white;
   border-radius: 20px;
   box-shadow: 0px 2px 4px rgba(157, 157, 157, 0.15);
+  animation: ${FadeIn} 1s linear;
   @media screen and (max-width: 500px) {
-      width: 90%;
-      margin: 20px auto;
-    }
-
-    
-  /* 애니메이션 */
-  opacity: ${(props) => (props.visible ? 1 : 0)};
-  visibility: ${(props) => (props.visible ? "visible" : "hidden")};
-  transition: visibility 1000ms , opacity 1000ms ;
+    width: 90%;
+    margin: 20px auto;
+  }
 `
 
 export const TextWrap = styled.div`
-
   width: 90%;
   margin: 0 auto;
   & > p:last-of-type {
@@ -49,7 +44,7 @@ export const TextWrap = styled.div`
 
 export const TextSpan = styled.span`
   color: ${props => props.theme.text.black};
-  padding: 50px 20px 0;
+  padding: 40px 20px 0;
   display: flex;
   justify-content: space-between;
 
@@ -71,16 +66,33 @@ export const TextSpan = styled.span`
   }
 `
 
-export default function RelayComment({ id, cnt, text, visible }) {
+export default function RelayComment({ comments }) {
+  const numRef = useRef(0)
+  const [commentArray, setCommentArray] = useState([])
+  const divRef = useRef()
+
+  useEffect(() => {
+    const loop = setInterval(() => {
+      let newArray = comments[numRef.current]
+      setCommentArray(prev => [...prev, newArray])
+      numRef.current++;
+      window.scrollTo({ top: (document.body.scrollHeight), behavior: "smooth" })
+      if (numRef.current === 10) clearInterval(loop)
+    }, 2000);
+  }, [])
+  
+  
   return (
-    <CommentBox visible={visible}>
-      <TextWrap>
-        <TextSpan>
-          <p>{id}</p>
-          <p>{cnt}번째 작가</p>
-        </TextSpan>
-        <p>{text}</p>
-      </TextWrap>
-    </CommentBox>
+    commentArray.map((comment, index) =>
+      <CommentBox key={index} ref={divRef}>
+        <TextWrap>
+          <TextSpan>
+            <p>{comment.nickname}</p>
+            <p>{index + 1}번째 작가</p>
+          </TextSpan>
+          <p>{comment.content}</p>
+        </TextWrap>
+      </CommentBox>
+    )
   )
 }
