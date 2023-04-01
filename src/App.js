@@ -60,7 +60,7 @@ function App() {
   window.addEventListener('resize', setScreenSize);
   
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Routes>
