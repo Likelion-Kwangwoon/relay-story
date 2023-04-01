@@ -1,6 +1,5 @@
 import ImgMemo from "../../assets/img-memo.png"
 import styled from "styled-components";
-import { useState } from "react";
 
 export const TextWrap = styled.div`
   width: 80%;

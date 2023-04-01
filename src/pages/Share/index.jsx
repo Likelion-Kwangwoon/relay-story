@@ -20,7 +20,7 @@ export const TitleDesc = styled.p`
 export const Cover = styled.div`
   width: 283px;
   height: 374px;
-  
+  transform: scaleX(${props => props.transform});
   background: url(${props => props.background}) no-repeat 50% 50% / contain;
   margin: 0 auto 48px;
   position: relative;
@@ -35,7 +35,9 @@ export const Cover = styled.div`
     position: absolute;
     width: 96px;
     bottom: 15px;
-    right: 10px;
+    transform: scaleX(${props => props.transform});
+    left: ${props => props.transform ? '10px' : false};
+    right: ${props => props.transform ? false : '10px' };
   }
 `
 
@@ -93,26 +95,32 @@ export default function Share() {
       } 
     })
     
-    if (response.comments.length === 10) {
+    if (response.comments?.length === 10) {
       setIsFinish(true)
     } 
   }
 
   const handleIsFinish = () => {
-    bookDetail.comments.length < 10 ?
-      alert('책이 완성될 때까지 조금만 기다려주세요 🥹') :
-      navigate('/share/content', {bookDetail})
+    if (isPrev) {
+      bookDetail.comments.length < 10 ?
+        alert('책이 완성될 때까지 조금만 기다려주세요 🥹') :
+        navigate('/share/content', { state: { bookDetail } })
+    }    
   }
   
   useEffect(() => {
     if (titleNum) {
-      const id = decrypt(titleNum)
+      const id = decrypt(titleNum.replaceAll(" ", "+"))
       handleGetBookDetail(id)
-    } else {
+      setUrl(titleNum)
+    } else if(location.state?.id) {
       location.state.id && handleGetBookDetail(location.state.id)
       location.state.id && setUrl(encrypt(location.state.id))
+    } else if (location.state?.book) {
+      setIsPrev(false)
+      setBookDetail(location.state.book)
+      setUrl(encrypt(location.state.book.comments[0].book))
     }
-    
   }, [])
   
 
@@ -132,11 +140,17 @@ export default function Share() {
       </TitleDesc>
       <Cover
         background={coverList[bookDetail.book.cover]}
+        transform={isPrev ? 1 : -1}
         onClick={handleIsFinish}>
         {
           isPrev ?
             <p>{bookDetail.book?.title}</p>
-            : <img src={imgBarcode} alt="바코드" />
+            :
+             <CopyToClipboard className="Toram"
+                text={`http://localhost:3000/comment?title=${url}`}
+                onCopy={() => alert("클립보드에 복사되었습니다.")}>
+                  <img src={imgBarcode} alt="바코드" />
+              </CopyToClipboard>
         }
       </Cover>
       <ShareWrap>

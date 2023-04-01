@@ -1,4 +1,4 @@
-import CryptoJS from "crypto-js";
+import CryptoJS, { enc } from "crypto-js";
 
 const secretKey = process.env.REACT_APP_SECRET;
   
@@ -6,7 +6,7 @@ export  const encrypt = (val) => {
   let text = val.toString();
 
   const encrypted = CryptoJS.AES.encrypt(text, secretKey);
-  let result = encrypted.toString();
+  let result = encrypted.toString(); 
 
   return encodeURIComponent(result);
 };

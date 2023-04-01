@@ -76,7 +76,7 @@ export default function WriteComment() {
   const handleBookDetail = async (id) => {
     const response = await getBookDetail(id)
     if (response.comments.length === 10) {
-      window.location.replace(`/share/cover?title=${titleNum}`)
+      navigate(`/share/cover?title=${titleNum}`)
     }
     setBookTitle(response.book.title)
     setBook(response.comments)

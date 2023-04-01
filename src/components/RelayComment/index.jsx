@@ -71,15 +71,15 @@ export const TextSpan = styled.span`
   }
 `
 
-export default function RelayComment({ id, cnt, text, visible }) {
+export default function RelayComment({ nickname, cnt, content, visible }) {
   return (
     <CommentBox visible={visible}>
       <TextWrap>
         <TextSpan>
-          <p>{id}</p>
+          <p>{nickname}</p>
           <p>{cnt}번째 작가</p>
         </TextSpan>
-        <p>{text}</p>
+        <p>{content}</p>
       </TextWrap>
     </CommentBox>
   )
