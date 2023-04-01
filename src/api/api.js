@@ -4,14 +4,12 @@ const baseURL = process.env.REACT_APP_URL;
 const userToken = localStorage.getItem('accessToken')
 
 const instanceUtil = axios.create({
-  baseURL,
   headers: {
     "Content-type": "application/json",
   },
 });
 
 const instance = axios.create({
-  baseURL,
   headers: {
     Authorization: `Bearer ${userToken}`,
     "Content-type": "application/json",
