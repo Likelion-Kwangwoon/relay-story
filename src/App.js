@@ -9,6 +9,7 @@ import Share from "./pages/Share";
 import WriteBook from "./pages/WriteBook";
 import BookViewer from "./pages/BookViewer";
 import WriteComment from "./pages/WriteComment"
+import Login from "./pages/Login";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -63,7 +64,8 @@ function App() {
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <Routes>
-          <Route path="/*" element={<Home />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/oauth" element={<Login />}/>
           <Route element={<MainWrapper />}>
             <Route path="/writeBook" element={<WriteBook />} />
             <Route path="/booklist" element={<MyBookList />} />

@@ -58,6 +58,7 @@ export const ShareWrap = styled.div`
 export default function Share() {
   const [isPrev, setIsPrev] = useState(true)
   const [isFinish, setIsFinish] = useState(false)
+  const [url, setUrl] = useState('')
   const [bookDetail, setBookDetail] = useState({
     book: {},
     comments: []

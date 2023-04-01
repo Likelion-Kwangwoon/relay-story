@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const baseURL = process.env.REACT_APP_URL;
-const kakaoKey = process.env.REACT_APP_KAKAO_KEY;
 const userToken = localStorage.getItem('accessToken')
 
 const instanceUtil = axios.create({
@@ -19,19 +18,27 @@ const instance = axios.create({
   },
 });
 
+instance.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('accessToken')}`;
+
+
+instance.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
+
+
 export const signUp = async (code) => {
   try {
     const response = await instanceUtil.get(`/user/signin/?code=${code}`);
 
     return response.data;
   } catch (error) {
-    console.error(error.message);
+    console.log(error);
     return error;
   }
 };
 
 
 export const getUserInfo = async () => {
+console.log(userToken);
+
   try {
     const response = await instance.get(`/user/auth/`);
     
@@ -44,7 +51,7 @@ export const getUserInfo = async () => {
 
 export const writeBook = async data => {
   try {
-    const response = await instance.post(`/book/write/`,  JSON.stringify(data));
+    const response = await instance.post(`/book/write/`, JSON.stringify(data));
     
     return response.data;
   } catch (error) {

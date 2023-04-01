@@ -6,9 +6,8 @@ import iconGoogle from "../../assets/icon-google.svg"
 import iconKakao from "../../assets/icon-kakao.svg"
 import MainBg from "../../assets/img-bg.png"
 import StarAnimation from "../../components/StarAnimation"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
-import { getUserInfo, signUp } from "../../api/api"
 
 export const Section = styled.section`
   position: fixed;
@@ -62,18 +61,6 @@ const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${proc
 export default function Home() {
   const [isLogin, setIsLogin] = useState(false)
   const navigate = useNavigate();
-  const location = useLocation()
-
-  let code = new URL(window.location.href).searchParams.get("code");
-
-  const handleSignUp = async (code) => {
-    const response = await signUp(code)
-    localStorage.setItem('accessToken', response.token.access)
-
-    navigate('/', setIsLogin(true))
-  }
-
-  if(location.pathname === '/oauth') handleSignUp(code)
 
   useEffect(() => {
     localStorage.getItem('accessToken') && setIsLogin(true)
@@ -86,13 +73,15 @@ export default function Home() {
   return (
     <Section>
       <StarAnimation />
-        <Logo className="main" />
+        <Logo className="main"/>
         <SubTitle>함께 만드는 이야기</SubTitle>
       <BtnWrap>
       {
         isLogin ?
           <>
-            <Button text='📜 책 쓰기' className="main" onClick={() => navigate('/writeBook')} />
+              <Button text='📜 책 쓰기' className="main"
+                onClick={() => navigate('/writeBook')}
+              />
             <Button text='📕 내 서재' className="main" onClick={() => navigate('/booklist')} />
           </>  
           :
