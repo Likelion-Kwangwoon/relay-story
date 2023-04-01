@@ -24,15 +24,13 @@ export const signUp = async (code) => {
 
     return response.data;
   } catch (error) {
-    console.log(error);
+    console.error(error);
     return error;
   }
 };
 
 
 export const getUserInfo = async () => {
-console.log(userToken);
-
   try {
     const response = await instance.get(`/user/auth/`);
     

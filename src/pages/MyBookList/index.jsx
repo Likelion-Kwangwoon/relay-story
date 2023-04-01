@@ -50,11 +50,14 @@ export const TextWrap = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 3px;
   & > p:first-of-type{
     font-size: 15px;
+    min-width: max-content;
   }
   & > p:last-of-type{
     font-size: 14px;
+    min-width: max-content;
     color: ${props => props.theme.text.gray2};
   }
 `
