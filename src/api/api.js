@@ -18,12 +18,6 @@ const instance = axios.create({
   },
 });
 
-instance.defaults.headers.common["Authorization"] = `Bearer ${localStorage.getItem('accessToken')}`;
-
-
-instance.defaults.headers.common["Authorization"] = `Bearer ${userToken}`;
-
-
 export const signUp = async (code) => {
   try {
     const response = await instanceUtil.get(`/user/signin/?code=${code}`);
@@ -74,6 +68,17 @@ export const getBookList = async () => {
 export const getBookDetail = async id => {
   try {
     const response = await instance.get(`/book/getbook/?bookId=${id}`);
+
+    return response.data;
+  } catch (error) {
+    console.error(error.message);
+    return error;
+  }
+};
+
+export const postComment = async (data) => {
+  try {
+    const response = await instanceUtil.post("/book/comment/", data);
 
     return response.data;
   } catch (error) {

@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import Button from '../../components/Button'
 import imgBarcode from "../../assets/img-barcode.png"
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { getBookDetail } from '../../api/api'
 import coverList from "../../components/BookCoverList"
+import { decrypt, encrypt } from '../../util/encrypt'
+import CopyToClipboard from 'react-copy-to-clipboard'
 
 export const Title = styled.p`
   font-size: 26px;
@@ -52,7 +53,21 @@ export const ShareWrap = styled.div`
   & > p {
     margin-left: 20px;
     color: ${props => props.theme.text.gray2};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;  
   }
+`
+
+export const CopyBtn = styled.button`
+  background-color: ${(props) => props.theme.color.main};
+  padding: 14px 0;
+  font-size: 1.2rem;
+  color: ${props => props.theme.text.black};
+  min-width: 68px;
+  padding: 15px 0;
+  border-radius: 50px;
+  font-size: 16px;
 `
 
 export default function Share() {
@@ -65,27 +80,39 @@ export default function Share() {
   })
   const navigate = useNavigate()
   const location = useLocation()
+  const titleNum = new URL(window.location.href).searchParams.get("title");
 
   const handleGetBookDetail = async (id) => {
     const response = await getBookDetail(id)
-    
-     setBookDetail(prev => {
+
+    setBookDetail(prev => {
       return {
         ...prev,
         book: response.book,
         comments: response.comments ?? 1
-      }
+      } 
     })
+    
+    if (response.comments.length === 10) {
+      setIsFinish(true)
+    } 
   }
 
   const handleIsFinish = () => {
     bookDetail.comments.length < 10 ?
       alert('책이 완성될 때까지 조금만 기다려주세요 🥹') :
-      navigate('/share/content')
+      navigate('/share/content', {bookDetail})
   }
   
   useEffect(() => {
-    location.state.id && handleGetBookDetail(location.state.id)
+    if (titleNum) {
+      const id = decrypt(titleNum)
+      handleGetBookDetail(id)
+    } else {
+      location.state.id && handleGetBookDetail(location.state.id)
+      location.state.id && setUrl(encrypt(location.state.id))
+    }
+    
   }, [])
   
 
@@ -113,8 +140,17 @@ export default function Share() {
         }
       </Cover>
       <ShareWrap>
-        <p>http://localhost:3000/</p>
-        <Button text='복사' className='copy' />
+        <CopyToClipboard className="Toram"
+          // 기본 url 배포 후 변경
+          text={`http://localhost:3000/comment?title=${url}`}
+          onCopy={() => alert("클립보드에 복사되었습니다.")}>
+          <p>http://localhost:3000/comment?title={url}</p>
+        </CopyToClipboard>
+         <CopyToClipboard className="Toram"
+          text={`http://localhost:3000/comment?title=${url}`}
+          onCopy={() => alert("클립보드에 복사되었습니다.")}>
+          <CopyBtn>복사</CopyBtn>
+        </CopyToClipboard>
       </ShareWrap>
     </>
   )

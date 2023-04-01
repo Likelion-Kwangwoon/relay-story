@@ -69,9 +69,9 @@ function App() {
           <Route element={<MainWrapper />}>
             <Route path="/writeBook" element={<WriteBook />} />
             <Route path="/booklist" element={<MyBookList />} />
-            <Route path="/share/cover" element={<Share />} />
+            <Route path="/share/cover/*" element={<Share />} />
             <Route path="/share/content" element={<BookViewer />} />
-            <Route path="/comment" element={<WriteComment />} />
+            <Route path="/comment/*" element={<WriteComment />} />
           </Route>
         </Routes>
       </ThemeProvider>
