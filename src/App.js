@@ -10,6 +10,7 @@ import WriteBook from "./pages/WriteBook";
 import BookViewer from "./pages/BookViewer";
 import WriteComment from "./pages/WriteComment"
 import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -79,6 +80,7 @@ function App() {
             <Route path="/share/content" element={<BookViewer />} />
             <Route path="/comment/*" element={<WriteComment />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </ThemeProvider>
     </BrowserRouter>
