@@ -25,6 +25,7 @@ instance.interceptors.request.use(
       localStorage.removeItem("expiredAt"); 
       window.location.replace("/");
     }
+    return config
   },
   error => {
     console.error(error)
