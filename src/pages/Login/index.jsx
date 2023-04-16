@@ -8,7 +8,7 @@ export default function Login() {
     try {
       const response = await signUp(code)
       localStorage.setItem('accessToken', response.token.access)
-
+      localStorage.setItem('expiredAt', new Date().getTime() + 30 * 60 * 1000)
       window.location.replace('/')
     } catch (e) {
       console.error(e)

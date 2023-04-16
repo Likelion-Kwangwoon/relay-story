@@ -51,9 +51,10 @@ export const LoginBtn = styled.button`
     left: 14px;
   }
 
-  &:first-of-type {
+  /* &:last-of-type {
     background-color: #ffffff;
-  }
+  } */
+  /* 구글 로그인 구현 후 수정 */
 `
 
 const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_KEY}&redirect_uri=${process.env.REACT_APP_REDIRECT_URI}&response_type=code`;
@@ -86,10 +87,10 @@ export default function Home() {
           </>  
           :
           <>
-            <LoginBtn>
+            {/* <LoginBtn>
               <img src={iconGoogle} alt="" />
               <span>구글 아이디로 로그인</span>
-            </LoginBtn>
+            </LoginBtn> */}
             <LoginBtn onClick={handleLogin}>
               <img src={iconKakao} alt="" />
               <span>카카오 아이디로 로그인</span>

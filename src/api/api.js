@@ -18,6 +18,19 @@ const instance = axios.create({
   },
 });
 
+instance.interceptors.request.use(
+  config => {
+    if (localStorage.getItem('expiredAt') < new Date().getTime()) {
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem("expiredAt"); 
+      window.location.replace("/");
+    }
+  },
+  error => {
+    console.error(error)
+  }
+)
+
 export const signUp = async (code) => {
   try {
     const response = await instanceUtil.get(`/user/signin/?code=${code}`);
@@ -28,7 +41,6 @@ export const signUp = async (code) => {
     return error;
   }
 };
-
 
 export const getUserInfo = async () => {
   try {

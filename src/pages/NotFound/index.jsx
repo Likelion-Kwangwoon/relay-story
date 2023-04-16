@@ -13,9 +13,8 @@ export default function NotFound() {
   const navigate = useNavigate()
 
   const handleNotFound = () => {
-    localStorage.getItem('accessToken') ?
-      localStorage.removeItem('accessToken') && navigate('/')
-      : navigate('/')
+    localStorage.getItem('accessToken') && localStorage.removeItem('accessToken') 
+    navigate('/')
   }
 
   return (
