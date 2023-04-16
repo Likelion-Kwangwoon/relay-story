@@ -147,7 +147,7 @@ export default function Share() {
             <p>{bookDetail.book?.title}</p>
             :
              <CopyToClipboard className="Toram"
-                text={`http://localhost:3000/comment?title=${url}`}
+                text={`https://relay-story-site.netlify.app/comment?title=${url}`}
                 onCopy={() => alert("클립보드에 복사되었습니다.")}>
                   <img src={imgBarcode} alt="바코드" />
               </CopyToClipboard>
@@ -155,13 +155,12 @@ export default function Share() {
       </Cover>
       <ShareWrap>
         <CopyToClipboard className="Toram"
-          // 기본 url 배포 후 변경
-          text={`http://localhost:3000/comment?title=${url}`}
+          text={`https://relay-story-site.netlify.app/comment?title=${url}`}
           onCopy={() => alert("클립보드에 복사되었습니다.")}>
-          <p>http://localhost:3000/comment?title={url}</p>
+          <p>https://relay-story-site.netlify.app/comment?title={url}</p>
         </CopyToClipboard>
          <CopyToClipboard className="Toram"
-          text={`http://localhost:3000/comment?title=${url}`}
+          text={`https://relay-story-site.netlify.app/comment?title=${url}`}
           onCopy={() => alert("클립보드에 복사되었습니다.")}>
           <CopyBtn>복사</CopyBtn>
         </CopyToClipboard>
