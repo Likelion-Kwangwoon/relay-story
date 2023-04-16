@@ -19,6 +19,7 @@ export const SubTitle = styled.p`
 
 export const NameInp = styled.input`
   display: block;
+  outline: none;
   border: none;
   background-color: inherit;
   border-bottom: 0.5px solid #CCCCCC;

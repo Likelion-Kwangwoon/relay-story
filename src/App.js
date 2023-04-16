@@ -28,6 +28,12 @@ const GlobalStyle = createGlobalStyle`
     min-height : calc(var(--vh, 1vh) * 100);
     font-family: 'GangwonEdu_OTFBoldA';
     background-color: ${(props) => props.theme.color.bg};
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
   }
   
   button, input, textarea {
@@ -65,7 +71,7 @@ function App() {
         <GlobalStyle />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/oauth" element={<Login />}/>
+          <Route path="/oauth" element={<Login />} />
           <Route element={<MainWrapper />}>
             <Route path="/writeBook" element={<WriteBook />} />
             <Route path="/booklist" element={<MyBookList />} />
