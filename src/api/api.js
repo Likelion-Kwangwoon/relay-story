@@ -20,11 +20,13 @@ const instance = axios.create({
 
 instance.interceptors.request.use(
   config => {
-    if (localStorage.getItem('expiredAt') < new Date().getTime()) {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem("expiredAt"); 
-      window.location.replace("/");
-    }
+    if (localStorage.getItem('accessToken')) {
+      if (localStorage.getItem('expiredAt') < new Date().getTime()) {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem("expiredAt"); 
+        window.location.replace("/");
+      }
+    } 
     return config
   },
   error => {
