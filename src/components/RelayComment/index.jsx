@@ -67,9 +67,8 @@ export const TextSpan = styled.span`
 `
 
 export default function RelayComment({ comments }) {
-  const numRef = useRef(0)
-  const [commentArray, setCommentArray] = useState([])
-  const divRef = useRef()
+  const numRef = useRef(1)
+  const [commentArray, setCommentArray] = useState([comments[0]])
 
   useEffect(() => {
     const loop = setInterval(() => {
@@ -81,10 +80,9 @@ export default function RelayComment({ comments }) {
     }, 2000);
   }, [])
   
-  
   return (
     commentArray.map((comment, index) =>
-      <CommentBox key={index} ref={divRef}>
+      <CommentBox key={index}>
         <TextWrap>
           <TextSpan>
             <p>{comment.nickname}</p>

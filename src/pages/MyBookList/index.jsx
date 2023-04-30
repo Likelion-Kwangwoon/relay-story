@@ -92,7 +92,7 @@ export default function MyBookList() {
               </Desc>
             </BookWrap>
         )
-        : <p>잠시 기다려주세요 🥲</p>
+        : <p>집필한 책이 아직 없어요! 😀</p>
       }
     </>
 

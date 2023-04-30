@@ -7,6 +7,7 @@ export default function Login() {
   const handleSignUp = async (code) => {
     try {
       const response = await signUp(code)
+      console.log(response);
       localStorage.setItem('accessToken', response.token.access)
       localStorage.setItem('expiredAt', new Date().getTime() + 30 * 60 * 1000)
       window.location.replace('/')

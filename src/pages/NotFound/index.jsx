@@ -19,7 +19,7 @@ export default function NotFound() {
 
   return (
     <Wrap>
-      <p>다시 로그인 후 시도해주세요 🥹</p>
+      <p>다시 로그인 후 시도해주세요 😢</p>
       <Button onClick={handleNotFound} className='main' text='로그인하기' />
     </Wrap>
   )

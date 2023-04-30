@@ -85,8 +85,8 @@ export default function WriteComment() {
 
   const handlePostComment = async () => {
     if (nameRef.current.value?.length < 2) {
-      alert('닉네임은 1글자 이상이어야 합니다!')
-    } else if (comment.length < 11) {
+      alert('닉네임은 2글자 이상이어야 합니다!')
+    } else if (comment.length < 10) {
       alert('내용은 10글자 이상 작성해주세요!')
     } else {
       const data = {
@@ -120,7 +120,7 @@ export default function WriteComment() {
           onChange={(e) => setComment(e.target.value)} maxLength="200"
           placeholder="이전 사용자의 내용을 읽고 이야기를 이어서 작성해주세요!">
         </TextInp>
-        <span>{`${comment.length}/200byte`}</span>
+        <span>{`${comment.length}/200자`}</span>
       </InpWrap>
       <Button onClick={handlePostComment} text="글쓰기" className="main fix" />
     </>
